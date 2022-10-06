@@ -1,0 +1,8 @@
+watchdog
+kivy
+kivymd
+matplotlib
+numpy
+openpyxl
+pandas
+pyModbusTCP
