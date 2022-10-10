@@ -9,7 +9,7 @@ from kivy.uix.screenmanager import ScreenManager
 from kivymd.uix.card import MDCard
 import random
 # meus modulos
-from libs.interfaces.matlab import EstudoProtecao
+from libs.interfaces.interfaces import EstudoProtecao
 
 
 class Composite(ScreenManager):

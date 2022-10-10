@@ -58,7 +58,6 @@ elseif choice_config == 5 %2TE + 4 UG
     choice_ponto_config_5 = menu('Escolha o Ponto de Análise','BARRA UG01', 'BARRA UG02', 'BARRA UG03', 'BARRA UG04', 'SAÍDA SE - BT TRAFO 01', 'ENTRADA SE - AT TRAFO 01', 'SAÍDA SE - BT TRAFO 02', 'ENTRADA SE - AT TRAFO 02', 'PONTO DE CONEXÃO');
 end
 
-
 %% CONFIGURAÇÃO 1TE + 1UG
 if choice_ponto_config_1 == 1
     ponto_config_1 = '1';

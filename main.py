@@ -17,9 +17,14 @@ from libs.composite import Composite
 
 MODE = 'development'
 
-# pip install -r requirements.txt
+# pip install -r requirements.txt-
 
-module_registration = ['main.py','interface_conexao.py','composite.py','funcoes.py','matlab.py'] # add modules that trigger reloading
+module_registration = ['main.py',
+                       'composite.py',
+                       'calcular.py',
+                       'interfaces.py',
+                       'state_var.py',
+                       'variaveis.py'] # add modules that trigger reloading
 
 def new_process(module: str)-> NoReturn:
     '''function that executes the desired module in the terminal'''
