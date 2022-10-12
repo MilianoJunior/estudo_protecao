@@ -18,6 +18,7 @@ from functools import partial
 # meus módulos
 from libs.variaveis.state_var import StateVar
 from libs.calculos.calcular import Calculos
+from libs.interfaces.styles.styles import Styles
 
 class EstudoProtecao(MDScreen):
 
