@@ -1,3 +1,3 @@
 Styles ={
-            'background' = '#333333'
+            'background':'#333333'
 }

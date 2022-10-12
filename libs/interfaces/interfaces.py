@@ -29,62 +29,68 @@ class EstudoProtecao(MDScreen):
         self.variaveis = StateVar()
 
     def __call__(self):
-        # layouts #############################################################
-        
+        # criar layouts #############################################################
         layout_principal = MDBoxLayout(md_bg_color="#C3C3C3", 
                                         orientation='vertical',
                                         padding=[10,10,10,10],
                                         spacing = 10,
                                         size_hint=[1,1],
-                                        adaptive_height= True)        
-        box_aux_scroll =  MDBoxLayout(md_bg_color="#C3C3C3",
-                                      orientation='vertical',
-                                      size_hint_y=None,
-                                      spacing = 10)
-        box_aux_scroll.bind(minimum_height=box_aux_scroll.setter('height'))
-        scroll = ScrollView(size_hint=(1, None), size=(800, 700))
+                                        pos_hint= {'center_x': .5, 'center_y': .5})        
+        box_aux_scroll =  MDBoxLayout(md_bg_color="#ffffff",
+                                      orientation='horizontal',
+                                      size_hint_x=None,
+                                      pos_hint= {'center_x': .5, 'center_y': .5},
+                                      spacing = 10,
+                                      elevation=5,
+                                      radius=[5,5,5,5])
+        box_aux_scroll.bind(minimum_width=box_aux_scroll.setter('width'))
+        scroll = ScrollView(size_hint=(None,None), 
+                            size=(500, 600),
+                            pos_hint= {'center_x': .5, 'center_y': .5},
+                            bar_width=10,
+                            bar_color='#003C3C',
+                            bar_inactive_color = '#000000')
         
-        # widgtes #############################################################
-        
+        # criar widgtes #############################################################
             # Display----------------------------------------------------------
         display_menu = self.display()
-        
             # Botão calcular---------------------------------------------------
         button = MDRaisedButton(text='Calcular',
                                 md_bg_color="0F2983",
                                 pos_hint= {'center_x': .5, 'center_y': .0})
-        
             # menu escolha concessionária--------------------------------------
         options = self.variaveis.concessionaria
         size = ['400dp','400dp']
-        position = (0.5,0.1)
+        position = (0.5,.5)
         choice_concessionaria  = self.gerar_menu(options, size, position,1)
             # menu escolha circuito--------------------------------------------
         options = self.variaveis.circuito
         size = ['400dp','360dp']
-        position = (0.5,0.1)
+        position = (0.5,0.5)
         choice_circuito  = self.gerar_menu(options, size, position,2)
             # menu escolha circuito submenu -----------------------------------------
         options = self.variaveis.pontos[self.variaveis.configuracoes[2]['valor']]
-        size = ['400dp','360dp']
-        position = (0.5,0.1)
+        size = ['400dp','300dp']
+        position = (0.5,0.5)
         choice_circuito_sub  = self.gerar_menu(options, size, position,2)
 
-        size = ['400dp','600dp']
+        size = ['400dp','520dp']
         options = self.variaveis.circuito_gerador
-        position = (0.5,0.1)
+        position = (0.5,0.5)
         choice_gerador  = self.gerar_menu_inputs(options, size, position,2)
 
         options = self.variaveis.circuito_trafo
-        size = ['400dp','500dp']
-        position = (0.5,0.1)
+        size = ['400dp','350dp']
+        position = (0.5,0.5)
         choice_trafo  = self.gerar_menu_inputs(options, size, position,2)
 
-        
+        # criar eventos ###########################################################
         button.fbind('on_press',self.logica_a)
-        # self.ids['choice_circuito_sub'] = choice_circuito_sub
+
+        # identificar widgets #####################################################
         self.ids['box_aux_scroll'] = box_aux_scroll 
-        # add layout principal
+        
+        # adicionar widgets aos leyouts ###########################################
         layout_principal.add_widget(display_menu)
         layout_principal.add_widget(button)
         box_aux_scroll.add_widget(choice_concessionaria)
@@ -95,7 +101,9 @@ class EstudoProtecao(MDScreen):
         scroll.add_widget(box_aux_scroll)
         layout_principal.add_widget(scroll)
         self.add_widget(layout_principal)
+
         return self
+
     def composite_scroll(self):
         print('lista C: ',self.ids['lista_c'])
         options = self.variaveis.pontos[self.variaveis.configuracoes[2]['valor']]
@@ -160,7 +168,7 @@ class EstudoProtecao(MDScreen):
                         text= options['titulo'],
                         halign="center",
                         theme_text_color='Custom',
-                        font_style='H6',
+                        font_style='Subtitle1',
                         text_color= "#333333",
                 )
         menu.add_widget(titulo)
@@ -174,7 +182,7 @@ class EstudoProtecao(MDScreen):
                                 color=(r, g, b,1),
                                 group=options['index'])
             checkbox.bind(active=partial(self.on_checkbox_active, options['index'], key, value))
-            lista = OneLineListItem(text=key)
+            lista = OneLineListItem(text=key, font_style='Body2')
             lista.add_widget(checkbox)
             lista_obj.add_widget(lista)
         menu.add_widget(lista_obj)
@@ -198,14 +206,14 @@ class EstudoProtecao(MDScreen):
                     text=options['titulo'],
                     halign="center",
                     theme_text_color='Custom',
-                    font_style='H6',
+                    font_style='Subtitle1',
                     text_color= "#333333",
                 )
         menu.add_widget(titulo)
         lista_obj = MDList()
         for key, value in options['dados'].items():
             r, g, b = [uniform(0.2, 1.0) for j in range(3)]
-            inputs = MDTextField(hint_text=key)
+            inputs = MDTextField(hint_text=key, font_size='10')
             inputs.bind(text=partial(self.on_checkbox_active, options['index'], key, value ))
             lista_obj.add_widget(inputs)
         menu.add_widget(lista_obj)
