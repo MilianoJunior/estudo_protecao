@@ -64,7 +64,7 @@ class AppReload(MDApp):
         super(AppReload, self).__init__(*args, **kwargs)
         Window.system_size = [833, 1000]
         Window.top = 20
-        Window.left = 1950
+        Window.left = 0
 
     def build(self):
         return Composite()()
